@@ -9,7 +9,7 @@ provider "google" {
 # Configure webserver instance
 resource "google_compute_instance" "appserver" {
   name         = "webserver"
-  machine_type = "e2-medium"
+  machine_type = "e2-standard-4"
 
   # Tag it for assigning
   tags = ["web"]
