@@ -1,0 +1,22 @@
+html {
+    font-family: "Open Sans", sans-serif;
+    background: whitesmoke;
+  }
+  
+  #main-block {
+    flex: 55%;
+    display: block;
+    margin-top: 30%;
+    margin-right: 10%;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .block {
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    margin-bottom: 30px;
+    padding: 15px 30px 30px 30px;
+    background-color: #fff;
+  }
+  
