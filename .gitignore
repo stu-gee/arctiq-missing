@@ -32,3 +32,6 @@ override.tf.json
 # Ignore SSH keys
 mykey
 mykey.pub
+
+# Ignore GCP credentials file
+credentials.json
