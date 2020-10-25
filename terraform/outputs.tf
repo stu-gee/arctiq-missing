@@ -1,3 +1,3 @@
-//output "instance_url" {
-//  value = "http://${google_compute_instance.tfansible.network_interface.0.access_config.0.assigned_nat_ip}"
-//}
+output "webapp-ip" {
+  value = "http://${google_compute_instance.appserver.network_interface.0.access_config.0.nat_ip}"
+}
