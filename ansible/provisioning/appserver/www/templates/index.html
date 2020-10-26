@@ -5,17 +5,24 @@
     <title>Hire Stu</title>
 
     <head>
-    	<meta charset="UTF-8">
-    	<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    	<title>FlaskBlog</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+        <title>Hire Stu</title>
     </head>
 </head>
 
 <body>
   <div id="main-block">
     <div class="block">
-      <h1>Reason to hire Stuart: </h1>
+            <h1>Reasons to hire me: <cc> {{ reason }} </cc></h1>
     </div>
   </div>
+
+  <div style="text-align:center;">
+    <form  method = "post" action="/">
+       <input type="submit" value="Generate"/>
+    </form>
+  </div>
+
 </body>
 </html>

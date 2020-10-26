@@ -5,7 +5,7 @@ LABEL description="Test Flask app"
 RUN apt-get update
 RUN apt-get install -y libmysqlclient-dev build-essential \
   python3-dev python3-pip
-RUN pip3 install flask flask-sqlalchemy mysqlclient
+RUN pip3 install flask flask-mysqldb mysqlclient
 
 # Install playbook and run it.
 COPY playbook.yml /etc/ansible/playbook.yml

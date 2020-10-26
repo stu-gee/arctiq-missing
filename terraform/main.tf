@@ -99,3 +99,50 @@ resource "google_compute_instance" "webserver" {
   }
 
 }
+
+# Configure dbserver instance
+resource "google_compute_instance" "dbserver" {
+  name         = "dbserver"
+  machine_type = "e2-standard-4"
+
+  # Tag it for assigning
+  tags = ["sql"]
+
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+    }
+  }
+
+  network_interface {
+    # Ensure it has a static IP address
+    network = "default"
+    network_ip = "10.138.0.46"
+    access_config {
+      nat_ip = google_compute_address.dbserver.address
+    }
+  }
+
+  # Upload ssh keys for access
+  metadata = {
+    ssh-keys = "${var.ssh_user}:${file("${var.public_key_path}")}"
+  }
+
+  # Confirm system is up and responsive
+  provisioner "remote-exec" {
+    inline = ["echo 'System Ready'"]
+
+    connection {
+      type        = "ssh"
+      user        = var.ssh_user
+      private_key = file("${var.private_key_path}")
+      host        = google_compute_instance.dbserver.network_interface.0.access_config.0.nat_ip
+    }
+  }
+
+  # Run ansible-playbook against system
+  provisioner "local-exec" {
+    command = "ansible-playbook -i ${var.ssh_user}@'${google_compute_instance.dbserver.network_interface.0.access_config.0.nat_ip},' --private-key ${var.private_key_path} ../ansible/provisioning/dbserver/main.yml"
+  }
+
+}

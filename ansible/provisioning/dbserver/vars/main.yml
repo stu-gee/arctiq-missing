@@ -1,0 +1,9 @@
+---
+mysql_root_password: password
+mysql_databases:
+  - name: reasons_db
+mysql_users:
+  - name: admin
+    host: "%"
+    password: password
+    priv: "reasons_db.*:ALL"

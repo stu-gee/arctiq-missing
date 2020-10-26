@@ -1,11 +1,32 @@
 from flask import Flask
 from flask import render_template
+from flask import request
+from flask_mysqldb import MySQL
+import random
 
 app = Flask(__name__)
 
-@app.route('/')
+app.config['MYSQL_USER'] = 'admin'
+app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_HOST'] = '10.138.0.46'
+app.config['MYSQL_DB'] = 'reasons_db'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+mysql = MySQL(app)
+
+@app.route('/', methods=['GET','POST'])
 def index():
-    return render_template('index.html')
+
+    cursor = mysql.connection.cursor()
+
+    cursor.execute('''SELECT * FROM reasons''')
+
+    reasonDict = cursor.fetchall()
+
+    reason = random.choice(list(reasonDict))
+
+    return render_template('index.html', reason=reason['message'])
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)

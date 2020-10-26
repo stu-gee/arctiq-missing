@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/main.yml
+
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=yes cache_valid_time=3600
+
+  roles:
+    - role: geerlingguy.mysql
+
+  tasks:
+
+    - name: Copy SQL data to host.
+      copy:
+        src: mydata.txt
+        dest: /tmp/mydata.txt
+
+    - name: Create table in SQL database.
+      command: >
+        mysql -u admin -ppassword -h localhost reasons_db --execute 
+        "CREATE TABLE reasons(id INT, message VARCHAR(255));"
+
+    - name: Enable local_infile to allow dumping of data.
+      command: >
+        mysql -u root -ppassword --execute "SET GLOBAL local_infile=1;"
+       
+    - name: Load data into database.
+      command: >
+        mysql --local-infile=1 -u admin -ppassword -h localhost reasons_db 
+        --execute "LOAD DATA LOCAL INFILE '/tmp/mydata.txt' INTO TABLE reasons 
+        FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';"
+

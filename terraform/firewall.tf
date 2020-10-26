@@ -4,10 +4,6 @@ resource "google_compute_firewall" "webserver-fw" {
   network = "default"
 
   allow {
-    protocol = "icmp"
-  }
-
-  allow {
     protocol = "tcp"
     ports    = ["80"]
   }
@@ -26,7 +22,20 @@ resource "google_compute_firewall" "appserver-fw" {
     ports    = ["80"]
   }
 
-  #source_ranges = ["${google_compute_instance.webserver.network_interface.0.network_ip}/32"]
   source_tags   = ["web"]
   target_tags   = ["app"]
+}
+
+# Firewall for dbserver
+resource "google_compute_firewall" "dbserver-fw" {
+  name    = "dbserver-fw"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["3306"]
+  }
+
+  source_tags   = ["app"]
+  target_tags   = ["sql"]
 }
