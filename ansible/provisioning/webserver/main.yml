@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: true
+  gather_facts: yes
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=yes cache_valid_time=3600
+
+  tasks:
+    - name: Install NGINX.
+      apt: name=nginx state=present
+
+    - name: Disable the default site
+      file:
+        path: "/etc/nginx/sites-enabled/default"
+        state: absent
+
+    - name: Copy Nginx server configuration in place.
+      template:
+        src: templates/appserver_proxy.conf.j2
+        dest: /etc/nginx/sites-enabled/appserver_proxy.conf
+        mode: 0644
+      notify: restart nginx
