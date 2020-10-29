@@ -1,0 +1,4 @@
+---
+- import_playbook: playbooks/appserver/main.yml
+- import_playbook: playbooks/dbserver/main.yml
+- import_playbook: playbooks/webserver/main.yml
