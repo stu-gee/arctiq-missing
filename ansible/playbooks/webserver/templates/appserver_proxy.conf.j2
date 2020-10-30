@@ -5,7 +5,7 @@ server {
     server_name webserver;
 
     location / {
-        proxy_pass http://10.138.0.44;
+        proxy_pass http://{{ appserver_ip }};
         proxy_set_header Authorization "";
         proxy_read_timeout 90s;
     }

@@ -6,3 +6,4 @@
 6,Decently funny
 7,Innovative and resourceful
 8,Could be the next Bill Gates??
+9,I'm a dog lover!

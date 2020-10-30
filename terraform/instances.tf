@@ -5,7 +5,7 @@ resource "google_compute_instance" "instance" {
   name         = each.key
   machine_type = var.MACHINE_TYPE
 
-  # Tag it for assigning
+  # Tag it for firewall assignment
   tags = [each.value.tags]
 
   boot_disk {
@@ -19,7 +19,6 @@ resource "google_compute_instance" "instance" {
     network    = "default"
     network_ip = each.value.network_ip
     access_config {
-      #nat_ip = "google_compute_address.appserver.address"
     }
   }
 

@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hire Stu</title>
 
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-        <title>Hire Stu</title>
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Hire Me</title>
+
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>Hire Me</title>
+  </head>
 </head>
+
+<!-- Print text with variable to be filled in by script -->
 
 <body>
   <div id="main-block">
     <div class="block">
-            <h1>Reasons to hire me: <cc> {{ reason }} </cc></h1>
+      <h1>Reasons to hire me: <cc> {{ reason }} </cc>
+      </h1>
     </div>
   </div>
 
+  <!-- Allow the client to submit an empty form causing script to re-run -->
+
   <div style="text-align:center;">
-    <form  method = "post" action="/">
-       <input type="submit" value="Generate"/>
+    <form method="post" action="/">
+      <input type="submit" value="Generate" />
     </form>
   </div>
 
 </body>
+
 </html>

@@ -7,3 +7,6 @@ mysql_users:
     host: "%"
     password: password
     priv: "reasons_db.*:ALL"
+appserver_ip : "10.138.0.44"
+sql_host : "10.138.0.46"
+sql_database: "reasons_db"
